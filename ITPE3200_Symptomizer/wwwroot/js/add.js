@@ -1,5 +1,5 @@
 ﻿function addPatient() {
-
+    //-- collecting data from all checkboxes and sending found data to list -----//
     var checkBoxes = $(".form-check-input");
     var checkedSymptoms = [];
     for (let i = 0; i < checkBoxes.length; i++) {
@@ -13,6 +13,10 @@
     const covid_19 = ["Fever or chills", "Cough", "Sore throat","High temperature","Shortness of breath or difficulty breathing", "Muscle or body aches"]
     let foundDisease = findDisease(checkedSymptoms, flu, covid_19);
 
+    //--Function for finding disease -------------//
+    //We will sort our arrays and convert them to the strings.
+    //Strings we will bring to lowercase
+    //And compare our list of checked symptoms with "database's diseases"
     function findDisease(checkedSymptoms, flu, covid_19) {
         var str1 = checkedSymptoms.sort().toString();
         var str2 = flu.sort().toString();
@@ -25,15 +29,15 @@
             return "Common cold";
         }
     }
-
+     //-- Creating our patient (object) -----------//
     const patient = {
         firstname: $("#firstname").val(),
         lastname: $("#lastname").val(),
         symptoms: checkedSymptoms.toString(),
+        symptoms: checkedSymptoms.toString(), //Due to our model holds String for symptoms, we converting toString()
         disease: foundDisease
     }
-    console.log(patient)
-    console.log(typeof(patient))!= 'undefine'
+    //-- Posting our Patient ----------------------//
     $.post("Patient/AddPatient", patient, function () {        
             window.location.href = 'index.html';
     }).fail(function (status) {

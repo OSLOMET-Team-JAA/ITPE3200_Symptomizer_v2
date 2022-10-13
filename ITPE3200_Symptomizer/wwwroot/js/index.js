@@ -1,11 +1,10 @@
 ﻿$(function () {
-    findAll();
+    findAll(); //--Getting data during page loading
 });
 
 function findAll() {
     $.get("Patient/FindAll", function (patients) {
-        console.log(patients)
-        edit(patients);
+        addDataTable(patients);
     }).fail(function (status) {
         if (status.status === 404) {
             $("#fail").html("Oops.. Something wrong! Try again later!").css('color', 'red');
@@ -13,7 +12,8 @@ function findAll() {
     })
 }
 
-function edit(patients) {
+//----- Showing our Patients' data -------------------------------//
+function addDataTable(patients) {
     let out = "<table class='table table-striped'>" +
         "<tr>" +
         "<th>First Name</th><th>Last name</th><th>Symptoms</th><th>Disease</th><th></th><th></th>" +
@@ -29,9 +29,10 @@ function edit(patients) {
             "</tr>";
     }
     out += "</table>";
-    console.log(out),
         $("#patients").html(out);
 }
+
+//---------- Function to delete Patient by ID ----------//
 function deletePatient(id) {
     const url = "Patient/deletePatient?id=" + id;
     $.get(url, function () {

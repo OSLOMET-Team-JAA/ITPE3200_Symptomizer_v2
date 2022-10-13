@@ -1,4 +1,5 @@
 ﻿$(function () {
+    //----- Getting data of Padient by his ID ------------//
     const id = window.location.search.substring(1);
     const url = "Patient/FindPatient?" + id
     $.get(url, function (patients) {
@@ -26,10 +27,11 @@
     });
 });
 
+//----- Function to make correction of Patient's data -------------//
 function editPatient() {
-    var checkBoxes = $(".form-check-input");
-    var checkedSymptoms = [];
-    for (let i = 0; i < checkBoxes.length; i++) {
+    var checkBoxes = $(".form-check-input"); //collecting data from all checkboxes
+    var checkedSymptoms = []; //In that list we will hold all values from checked checkboxes
+    for (let i = 0; i < checkBoxes.length; i++) {   //Loop through checkboxes and if it was checked - getting value and sending to our list
         if (checkBoxes[i].checked) {
             checkedSymptoms.push(checkBoxes[i].value);
         }
@@ -39,7 +41,11 @@ function editPatient() {
     const flu = ["Fever or chills", "Cough", "Sore throat","High temperature" ,"Muscle or body aches"]
     const covid_19 = ["Fever or chills", "Cough", "Sore throat", "High temperature", "Shortness of breath or difficulty breathing", "Muscle or body aches"]
     let foundDisease = findDisease(checkedSymptoms,flu,covid_19);
-        
+
+    //--Function for finding disease -------------//
+    //We will sort our arrays and convert them to the strings.
+    //Strings we will bring to lowercase
+    //And compare our list of checked symptoms with "database's diseases"
     function findDisease(checkedSymptoms, flu, covid_19) {
         var str1 = checkedSymptoms.sort().toString();
         var str2 = flu.sort().toString();
@@ -53,13 +59,15 @@ function editPatient() {
         }
     }
 
+    //-- Creating our patient (object) -----------//
     const patient = {
         id: $("#id").val(),
         firstname: $("#firstname").val(),
         lastname: $("#lastname").val(),
-        symptoms: checkedSymptoms.toString(),
+        symptoms: checkedSymptoms.toString(), //Due to our model holds String for symptoms, we converting toString()
         disease: foundDisease
     }
+    //-- Posting our Patient ----------------------//
     $.post("Patient/EditPatient", patient, function () {
         window.location.href = 'index.html';
     }).fail(function (status) {

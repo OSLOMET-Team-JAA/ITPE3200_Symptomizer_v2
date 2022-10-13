@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ITPE3200_Symptomizer.DAL
 {
-    public class PatientRepository : IPatientRepository
+    public class PatientRepository : IPatientRepository //Implementing all methods from interface
     {
         private readonly PatientContext _db;
         public PatientRepository(PatientContext db)
