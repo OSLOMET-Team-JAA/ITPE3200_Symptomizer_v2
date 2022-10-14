@@ -33,7 +33,6 @@
     const patient = {
         firstname: $("#firstname").val(),
         lastname: $("#lastname").val(),
-        symptoms: checkedSymptoms.toString(),
         symptoms: checkedSymptoms.toString(), //Due to our model holds String for symptoms, we converting toString()
         disease: foundDisease
     }
