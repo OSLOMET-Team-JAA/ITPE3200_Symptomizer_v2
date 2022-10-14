@@ -1,9 +1,10 @@
 # ITPE3200_Symptomizer
 
 ## Project members (Group 8):
-Aya Sherif Mohamed Abdelhady (s354367)
-Jessica Antoin Chackyan (s351930) 
-Aleksander Korkh (s354398)
+
+Aya Sherif Mohamed Abdelhady (s354367),
+Jessica Antoin Chackyan (s351930), 
+Aleksander Korkh (s354398),
 
 ## Web application "Symptomizer"
 Setting diagnosis by givven symptoms as per Assingment 1.
