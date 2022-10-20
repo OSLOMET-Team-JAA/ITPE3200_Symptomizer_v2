@@ -1,8 +1,8 @@
-﻿using ITPE3200_Symptomizer.Modules;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ITPE3200_Symptomizer.Models;
 
 namespace ITPE3200_Symptomizer.DAL
 {

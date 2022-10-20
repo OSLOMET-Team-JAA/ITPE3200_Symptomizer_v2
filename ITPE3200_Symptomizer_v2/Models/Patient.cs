@@ -1,5 +1,5 @@
 ﻿
-namespace ITPE3200_Symptomizer.Modules
+namespace ITPE3200_Symptomizer.Models
 {
     public class Patient
     {

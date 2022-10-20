@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>ITPE3200_Symptomizer</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

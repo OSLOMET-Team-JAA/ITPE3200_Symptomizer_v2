@@ -1,8 +1,8 @@
 ﻿using ITPE3200_Symptomizer.DAL;
-using ITPE3200_Symptomizer.Modules;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ITPE3200_Symptomizer.Models;
 
 namespace ITPE3200_Symptomizer.Controllers
 {
