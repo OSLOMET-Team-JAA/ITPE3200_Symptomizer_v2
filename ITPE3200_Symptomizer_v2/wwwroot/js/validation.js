@@ -44,9 +44,8 @@ function validationOK() {
         validateSymptoms()
 }
 
-function validateUserName(){
-    const username = $("#username").val();
-    const regExp = /^[0-9a-zA-ZæøåÆØÅ. \-]{2,20}$/;
+function validateUserName(username){
+    const regExp = /^[a-zA-ZæøåÆØÅ\.\ \-]{2,20}$/;
     const ok = regExp.test(username);
     if(!ok){
         $("#failUserName").html("User name should have from 2 upto 20 symbols");
@@ -58,9 +57,8 @@ function validateUserName(){
     }
 }
 
-function validatePassword(){
-    const password = $("#password").val();
-    const regExp = /^(?=.*[a-zA-ZæøåÆØÅ])(?=.*\d)[a-zA_ZæøåÆØÅ\d](?=.*[!#$%&? "]){6,}$/;
+function validatePassword(password){
+    const regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
     //  ^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$
     // 
     //  ---

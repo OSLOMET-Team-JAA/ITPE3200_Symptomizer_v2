@@ -31,7 +31,7 @@ namespace ITPE3200_Symptomizer.DAL
                 {
                     Username = "Admin"
                 };
-                const string password = "Admin";
+                var password = "Admin11";
                 byte[] salt = PatientRepository.CreateSalt(); //can be used var instead
                 byte[] hash = PatientRepository.CreateHash(password, salt); //can be used var instead
                 user.Password = hash;
