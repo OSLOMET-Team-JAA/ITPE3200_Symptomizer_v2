@@ -22,7 +22,13 @@ namespace ITPE3200_Symptomizer.DAL
         public virtual List<Patients> Patients { get; set; }
     }
 
-    
+    public class Users
+    {
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public byte[] Password { get; set; }
+        public byte[] Salt { get; set; }
+    }
 
     public class PatientContext : DbContext
     {
@@ -34,6 +40,7 @@ namespace ITPE3200_Symptomizer.DAL
 
         public virtual DbSet<Patients> Patients { get; set; }
         public virtual DbSet<Diseases> Diseases { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

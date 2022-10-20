@@ -1,19 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using ITPE3200_Symptomizer.Models;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
+using Microsoft.Extensions.Logging;
 
 namespace ITPE3200_Symptomizer.DAL
 {
     public class PatientRepository : IPatientRepository //Implementing all methods from interface
     {
         private readonly PatientContext _db;
-        public PatientRepository(PatientContext db)
+        private ILogger<PatientRepository> _log;
+        public PatientRepository(PatientContext db, ILogger<PatientRepository> log)
         {
             _db = db;
+            _log = log;
         }
-
         public async Task<bool> AddPatient(Patient p)
         {
             try
@@ -41,8 +47,9 @@ namespace ITPE3200_Symptomizer.DAL
                 await _db.SaveChangesAsync();
                 return true;
             }
-            catch
+            catch(Exception e)
             {
+                _log.LogInformation(e.Message);
                 return false;
             }
         }
@@ -60,8 +67,9 @@ namespace ITPE3200_Symptomizer.DAL
                 }).ToListAsync();
                 return patients;
             }
-            catch
+            catch(Exception e)
             {
+                _log.LogInformation(e.Message);
                 return null;
             }
         }
@@ -74,23 +82,32 @@ namespace ITPE3200_Symptomizer.DAL
                 await _db.SaveChangesAsync();
                 return true;
             }
-            catch
+            catch(Exception e)
             {
+                _log.LogInformation(e.Message);
                 return false;
             }
         }
         public async Task<Patient> FindPatient(int id)
         {
-            Patients patient = await _db.Patients.FindAsync(id);
-            var foundPatient = new Patient()
+            try
             {
-                Id = patient.Id,
-                Firstname = patient.Firstname,
-                Lastname = patient.Lastname,
-                Symptoms = patient.Disease.Symptoms,
-                Disease = patient.Disease.DiseaseName
-            };
-            return foundPatient;
+                Patients patient = await _db.Patients.FindAsync(id);
+                var foundPatient = new Patient()
+                {
+                    Id = patient.Id,
+                    Firstname = patient.Firstname,
+                    Lastname = patient.Lastname,
+                    Symptoms = patient.Disease.Symptoms,
+                    Disease = patient.Disease.DiseaseName
+                };
+                return foundPatient;
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return null;
+            }
         }
 
         public async Task<bool> EditPatient(Patient eP)
@@ -100,7 +117,7 @@ namespace ITPE3200_Symptomizer.DAL
                 var editPatient = await _db.Patients.FindAsync(eP.Id);
                 if (editPatient.Disease.Symptoms != eP.Symptoms)
                 {
-                    var findSimptoms = _db.Diseases.Find(eP.Symptoms);
+                    var findSimptoms = await _db.Diseases.FindAsync(eP.Symptoms);
                     if (findSimptoms == null)
                     {
                         var newDisease = new Diseases()
@@ -120,11 +137,50 @@ namespace ITPE3200_Symptomizer.DAL
                 await _db.SaveChangesAsync();
                 return true;
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogInformation(e.Message);
                 return false;
             }
             //return true;
+        }
+
+        public static byte[] CreateHash(string password, byte[] salt)
+        {
+            return KeyDerivation.Pbkdf2(
+                password: password,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA512,
+                iterationCount: 1000,
+                numBytesRequested: 32);
+        }
+
+        public static byte[] CreateSalt()
+        {
+            var csp = new RNGCryptoServiceProvider();
+            var salt = new byte[24];
+            csp.GetBytes(salt);
+            return salt;
+        }
+
+        public async Task<bool> LoggIn(User user)
+        {
+            try
+            {
+                Users foundUser = await _db.Users.FirstOrDefaultAsync(u => u.Username == user.Username);
+                byte[] hash = CreateHash(user.Password, foundUser.Salt);
+                bool ok = hash.SequenceEqual(foundUser.Password);
+                if (ok)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return false;
+            }
         }
     }
 }
