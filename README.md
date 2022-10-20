@@ -1,4 +1,4 @@
-# ITPE3200_Symptomizer
+# ITPE3200_Symptomizer_v2
 
 ## Project members (Group 8):
 
@@ -6,9 +6,10 @@ Aya Sherif Mohamed Abdelhady (s354367),
 Jessica Antoin Chackyan (s351930), 
 Aleksander Korkh (s354398),
 
-## Web application "Symptomizer"
-Setting diagnosis by givven symptoms as per Assingment 1.
-"A solution where one can select predefined symptoms and the solution should tell you what you have (i.e. your diagnosis)" https://oslomet.instructure.com/courses/24253/assignments/67024
+## Web application "Symptomizer" version 2 (Update for Project: Symptomizer)
+Setting diagnosis by givven symptoms as per Assingment 2.
+"A solution where one can select predefined symptoms and the solution should tell you what you have (i.e. your diagnosis)". Application is updated with Logg in functionality and password hashing.
+https://oslomet.instructure.com/courses/24253/assignments/... ??? 
 
 ## Project description
 ### What our application does
