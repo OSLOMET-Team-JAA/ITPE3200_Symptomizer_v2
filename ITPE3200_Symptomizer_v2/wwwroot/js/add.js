@@ -1,4 +1,10 @@
-﻿function addPatient() {
+﻿function validateAdd(){
+    if(validationOK){
+        addPatient();
+    }
+}
+
+function addPatient() {
     //-- collecting data from all checkboxes and sending found data to list -----//
     var checkBoxes = $(".form-check-input");
     var checkedSymptoms = [];

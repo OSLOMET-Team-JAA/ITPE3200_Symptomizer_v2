@@ -7,6 +7,7 @@
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/edit.js"></script>
+    <script src="js/validation.js"></script>
 
 </head>
 <body>
@@ -30,10 +31,12 @@
                             <div class="form-group">                                
                                 <label for="firstname">First name:</label>
                                 <input type="text" class="form-control" id="firstname" placeholder="First name..." name="firstname">
+                                <span id="failFirsName" style="color:red"></span>
                             </div>
                             <div class="form-group">
                                 <label for="lastname">Last name:</label>
                                 <input type="text" class="form-control" id="lastname" placeholder="Last name..." name="lastname">
+                                <span id="failLastName" style="color:red"></span>
                             </div>
                         </fieldset>
                         <!-- Patient's symptoms  -->
@@ -67,7 +70,7 @@
                         <!-- Apply Button  -->
                         <div class="form-group row text-center">
                             <div class="col">
-                                <button type="button" class="btn btn-primary btn-customized" onclick="editPatient()">Apply changes!</button>
+                                <button type="button" class="btn btn-primary btn-customized" onclick="validateEdit()">Apply changes!</button>
                             </div>
                         </div>
                     </form>

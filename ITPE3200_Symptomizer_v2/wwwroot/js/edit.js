@@ -27,6 +27,12 @@
     });
 });
 
+function validateEdit(){
+    if(validationOK){
+        editPatient();
+    }
+}
+
 //----- Function to make correction of Patient's data -------------//
 function editPatient() {
     var checkBoxes = $(".form-check-input"); //collecting data from all checkboxes
