@@ -78,5 +78,21 @@ namespace ITPE3200_Symptomizer.Controllers
             _log.LogInformation("Input's validation failed");
             return BadRequest("Inputs' validation failed");
         }
+
+        public async Task<ActionResult> LoggIn(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                bool returnOk = await _db.LoggIn(user);
+                if (!returnOk)
+                {
+                    _log.LogInformation("Failed to logg in with user name {user.Username}", user.Username);
+                    return Ok(false);
+                }
+                return Ok(true);
+            }
+            _log.LogInformation("Fail in input validation");
+            return BadRequest("Fail in input validation on server side");
+        }
     }
 }

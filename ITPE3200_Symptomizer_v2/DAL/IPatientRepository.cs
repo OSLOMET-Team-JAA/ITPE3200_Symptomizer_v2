@@ -11,5 +11,6 @@ namespace ITPE3200_Symptomizer.DAL
         Task<bool> DeletePatient(int id);
         Task<Patient> FindPatient(int id);
         Task<bool> EditPatient(Patient eP);
+        Task<bool> LoggIn(User user);
     }
 }
