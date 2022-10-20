@@ -25,6 +25,21 @@ namespace ITPE3200_Symptomizer.DAL
                 //--Add pre-created Patients to context (Database) ----------//
                 context.Patients.Add(patient1);
                 context.Patients.Add(patient2);
+                
+                //--Creating predefined user -------------------------------//
+                var user = new Users
+                {
+                    Username = "Admin"
+                };
+                const string password = "Admin";
+                byte[] salt = PatientRepository.CreateSalt(); //can be used var instead
+                byte[] hash = PatientRepository.CreateHash(password, salt); //can be used var instead
+                user.Password = hash;
+                user.Salt = salt;
+                context.Users.Add(user);
+                
+                
+                context.SaveChanges();
 
                 //----Some referrences --------------------------------------//
                 //https://www.cdc.gov/flu/symptoms/symptoms.htm
@@ -32,7 +47,7 @@ namespace ITPE3200_Symptomizer.DAL
                 //https://oslomet.instructure.com/courses/24253/pages/kunde-ordre-eksempel?module_item_id=452353
 
 
-                context.SaveChanges();
+                
             }
         }
     }
