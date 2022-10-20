@@ -22,6 +22,8 @@ namespace ITPE3200_Symptomizer.DAL
         public virtual List<Patients> Patients { get; set; }
     }
 
+    
+
     public class PatientContext : DbContext
     {
         public PatientContext(DbContextOptions<PatientContext> options)
