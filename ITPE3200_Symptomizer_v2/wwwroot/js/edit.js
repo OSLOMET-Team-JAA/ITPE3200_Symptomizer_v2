@@ -77,8 +77,10 @@ function editPatient() {
     $.post("Patient/EditPatient", patient, function () {
         window.location.href = 'index.html';
     }).fail(function (status) {
-        if (status.status === 404) {
-            $("#fail").html("Oops.. Something wrong! Try again later!").css('color', 'red');
+        if(fail.status === 401){ //not unauthorized
+            window.location.href="loggIn.html"; //Not logged in, redirecting to loggIn.html
+        }else {
+            $("#fail").html("Oops.. Server failed! Try again later!").css('color', 'red');
         }
     });
 };

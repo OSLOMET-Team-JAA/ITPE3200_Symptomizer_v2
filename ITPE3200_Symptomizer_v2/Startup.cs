@@ -1,3 +1,4 @@
+using System;
 using ITPE3200_Symptomizer.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +26,13 @@ namespace ITPE3200_Symptomizer
             services.AddDbContext<PatientContext>(options =>
                             options.UseSqlite("Data Source=Patient.db"));
             services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".AdventureWorks.Session";
+                options.IdleTimeout = TimeSpan.FromSeconds(1000); //30 min
+                options.Cookie.IsEssential = true;
+            });
+            services.AddDistributedMemoryCache(); //Required for session's run
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +52,8 @@ namespace ITPE3200_Symptomizer
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession(); //To run settion
 
             app.UseAuthorization();
 

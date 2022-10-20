@@ -5,9 +5,11 @@
 function findAll() {
     $.get("Patient/FindAll", function (patients) {
         addDataTable(patients);
-    }).fail(function (status) {
-        if (status.status === 404) {
-            $("#fail").html("Oops.. Something wrong! Try again later!").css('color', 'red');
+    }).fail(function (fail) {
+        if(fail.status === 401){ //not unauthorized
+            window.location.href="loggIn.html"; //not logged in, redirecting to loggIn.html
+        }else {
+            $("#fail").html("Oops.. Server failed! Try again later!").css('color', 'red');
         }
     })
 }
